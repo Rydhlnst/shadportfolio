@@ -1,9 +1,10 @@
-import * as Icons from 'lucide-react'
+
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { FileText, Folder, Home, Mail, User } from 'lucide-react'
 
-const sideBarLinks = {
+export const sideBarLinks = {
     home: {
         label: "Home",
         path: "/",
@@ -19,16 +20,6 @@ const sideBarLinks = {
         path: "/projects",
         icon: "folder",
       },
-      blog: {
-        label: "Blog",
-        path: "/blog",
-        icon: "pen-line",
-      },
-      skills: {
-        label: "Skills",
-        path: "/skills",
-        icon: "code",
-      },
       contact: {
         label: "Contact",
         path: "/contact",
@@ -41,12 +32,21 @@ const sideBarLinks = {
       },
 }
 
+const icons = {
+  home: Home,
+  user: User,
+  folder: Folder,
+  mail: Mail,
+  "file-text": FileText,
+}
+
 const SideBar = () => {
 
   return (
     <div className="sticky left-0 top-0 h-screen flex flex-col overflow-y-auto border-r p-6 pt-36 dark:shadow-none max-sm:hidden lg:w-[266px]">
         <div className='flex flex-col space-y-4'>
         {Object.entries(sideBarLinks).map(([key, link]) => {
+          const Icon = icons[link.icon];
             return (
             <Link
                 key={key}
@@ -54,6 +54,7 @@ const SideBar = () => {
                 className="flex items-center rounded-lg hover:bg-muted transition-colors"
             >
                 <Button variant={'ghost'}>
+                    <Icon className="w-5 h-5"/>
                     <span>{link.label}</span>
                 </Button>
             </Link>

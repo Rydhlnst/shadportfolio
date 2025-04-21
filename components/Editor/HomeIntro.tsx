@@ -14,6 +14,13 @@ import { Button } from "../ui/button"
 import { Copy } from "lucide-react"
 import { toast } from "sonner"
 
+interface CodeIntroBlockProps {
+  defaultLanguage?: string
+  codeSnippets: Record<string, string>
+  title?: string
+}
+
+
 const languageMap: Record<string, any> = {
   typescript: Prism.languages.typescript,
   jsx: Prism.languages.jsx,
@@ -22,94 +29,49 @@ const languageMap: Record<string, any> = {
   html: Prism.languages.markup,
 }
 
-const defaultCodes: Record<string, string> = {
-    typescript: `const myIntroduction = () => {
-    return (
-      <main>
-        <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
-        <p>
-          I'm a Computer Engineering student passionate about building useful and impactful web applications.
-        </p>
-      </main>
-    )
-  }
-  
-  export default myIntroduction
-  `,
-    jsx: `function myIntroduction() {
-    return (
-      <main>
-        <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
-        <p>
-          I'm a Computer Engineering student passionate about building useful and impactful web applications.
-        </p>
-      </main>
-    )
-  }
-  
-  export default myIntroduction
-  `,
-    python: `def my_introduction():
-    return {
-      "name": "Muhammad Riyadhul Jinan Nasution",
-      "about": "I'm a Computer Engineering student passionate about building useful and impactful web applications."
-    }
-  `,
-    json: `{
-    "name": "Muhammad Riyadhul Jinan Nasution",
-    "about": "I'm a Computer Engineering student passionate about building useful and impactful web applications."
-  }
-  `,
-    html: `<main>
-    <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
-    <p>
-      I'm a Computer Engineering student passionate about building useful and impactful web applications.
-    </p>
-  </main>`
-  }
-
-const HomeIntro = () => {
-  const [language, setLanguage] = useState("typescript")
-  const [code, setCode] = useState(defaultCodes[language])
+const HomeIntro = ({defaultLanguage = "typescript", codeSnippets, title}: CodeIntroBlockProps) => {
+  const [language, setLanguage] = useState(defaultLanguage)
+  const [code, setCode] = useState(codeSnippets[defaultLanguage])
 
   const handleLanguageChange = (value: string) => {
     setLanguage(value)
-    setCode(defaultCodes[value])
+    setCode(codeSnippets[value])
   }
 
   return (
     <div className="space-y-4 flex flex-col mt-6">
+      {title && <h2 className="text-xl font-semibold">{title}</h2>}
+      
       <Select value={language} onValueChange={handleLanguageChange}>
         <SelectTrigger className="w-[220px]">
           <SelectValue placeholder="Select a language" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="typescript">TypeScript</SelectItem>
-          <SelectItem value="jsx">JSX</SelectItem>
-          <SelectItem value="python">Python</SelectItem>
-          <SelectItem value="json">JSON</SelectItem>
-          <SelectItem value="html">HTML</SelectItem>
+          {Object.keys(codeSnippets).map((lang) => (
+            <SelectItem key={lang} value={lang}>
+              {lang}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
       <div className="rounded-xl relative overflow-hidden border border-border bg-[#1e1e1e] p-4 text-sm font-mono">
         <Button
-            onClick={() => {
-                navigator.clipboard.writeText(code)
-                toast.success("Success Copied")
-            }}
-            size="icon"
-            variant="ghost"
-            className="absolute top-3 right-3 cursor-pointer z-50"
-            >
-            <Copy className="w-4 h-4" />
+          onClick={() => {
+            navigator.clipboard.writeText(code)
+            toast.success("Success Copied")
+          }}
+          size="icon"
+          variant="ghost"
+          className="absolute top-3 right-3 cursor-pointer z-10"
+        >
+          <Copy className="w-4 h-4" />
         </Button>
+
         <Editor
           value={code}
           onValueChange={setCode}
-          highlight={(code) =>
-            Prism.highlight(code, languageMap[language], language)
-          }
+          highlight={(code) => Prism.highlight(code, languageMap[language], language)}
           padding={16}
           style={{
             fontFamily: '"Fira Code", monospace',
@@ -119,8 +81,9 @@ const HomeIntro = () => {
             outline: "none",
           }}
         />
+
         <p className="text-sm text-muted-foreground mt-2">
-        Showing code in: <span className="font-medium capitalize">{language}</span>
+          Showing code in: <span className="font-medium capitalize">{language}</span>
         </p>
       </div>
     </div>

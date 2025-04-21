@@ -1,21 +1,74 @@
 import HomeIntro from "@/components/Editor/HomeIntro";
-import Footer from "@/components/Footer/Footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { projects } from "@/constant";
-import Image from "next/image";
+
+const defaultCodes: Record<string, string> = {
+      typescript: `const myIntroduction = () => {
+      return (
+        <main>
+          <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
+          <p>
+            I'm a Computer Engineering student passionate about building useful and impactful web applications.
+          </p>
+        </main>
+      )
+    }
+
+    export default myIntroduction
+    `,
+      jsx: `function myIntroduction() {
+      return (
+        <main>
+          <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
+          <p>
+            I'm a Computer Engineering student passionate about building useful and impactful web applications.
+          </p>
+        </main>
+      )
+    }
+
+    export default myIntroduction
+    `,
+      python: `def my_introduction():
+      return {
+        "name": "Muhammad Riyadhul Jinan Nasution",
+        "about": "I'm a Computer Engineering student passionate about building useful and impactful web applications."
+      }
+    `,
+      json: `{
+      "name": "Muhammad Riyadhul Jinan Nasution",
+      "about": "I'm a Computer Engineering student passionate about building useful and impactful web applications."
+    }
+    `,
+      html: `<main>
+      <h1>My Name is Muhammad Riyadhul Jinan Nasution</h1>
+      <p>
+        I'm a Computer Engineering student passionate about building useful and impactful web applications.
+      </p>
+    </main>`
+    }
+
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col pb-6">
       <div className="flex flex-col">
         <h1 className="text-4xl">Introduction</h1>
         <p className="text-muted-foreground max-w-3.5xl text-justify mt-4 text-sm">
           I’m a self-driven computer engineering student with a passion for building scalable and impactful web applications. 
           Currently exploring technologies like AI, Web3, and cloud development. Always curious. Always learning.
         </p>
-        {/* <div className="mt-6 flex flex-row space-x-6">
+        
+        <HomeIntro title="My Code Introduction" defaultLanguage="typescript" codeSnippets={defaultCodes}/>
+        <p className="text-sm text-muted-foreground mt-4 italic">
+          “My goal is to empower people through technology by combining creativity, empathy, and engineering.”
+        </p>
+      </div>
+      <div>
+      </div>
+    </main>
+  );
+}
+
+{/* <div className="mt-6 flex flex-row space-x-6">
         <Carousel className="w-full max-w-4xl mx-auto">
         <CarouselContent>
           {projects.map((project, index) => (
@@ -50,13 +103,3 @@ export default function Home() {
             </Button>
           </div>
         </div> */}
-        <HomeIntro/>
-        <p className="text-sm text-muted-foreground mt-4 italic">
-          “My goal is to empower people through technology by combining creativity, empathy, and engineering.”
-        </p>
-      </div>
-      <div>
-      </div>
-    </main>
-  );
-}
