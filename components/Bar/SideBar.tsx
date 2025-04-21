@@ -46,19 +46,24 @@ const SideBar = () => {
     <div className="sticky left-0 top-0 h-screen flex flex-col overflow-y-auto border-r p-6 pt-36 dark:shadow-none max-sm:hidden lg:w-[266px]">
         <div className='flex flex-col space-y-4'>
         {Object.entries(sideBarLinks).map(([key, link]) => {
-          const Icon = icons[link.icon];
-            return (
+          type IconKey = keyof typeof icons;
+          const Icon = icons[link.icon as IconKey];
+
+          return (
             <Link
-                key={key}
-                href={link.path}
-                className="flex items-center rounded-lg hover:bg-muted transition-colors"
+              key={key}
+              href={link.path}
+              className="flex items-center rounded-lg hover:bg-muted transition-colors"
             >
-                <Button variant={'ghost'}>
-                    <Icon className="w-5 h-5"/>
-                    <span>{link.label}</span>
-                </Button>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-2 w-full justify-start px-4 py-2"
+              >
+                <Icon className="w-5 h-5" />
+                <span>{link.label}</span>
+              </Button>
             </Link>
-            );
+          );
         })}
         </div>
     </div>

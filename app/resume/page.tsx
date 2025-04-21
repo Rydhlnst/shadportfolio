@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Download } from 'lucide-react'
 import React from 'react'
 
-export const defaultResumeCodes: Record<string, string> = {
+const defaultResumeCodes: Record<string, string> = {
     typescript: `const myResume = {
     name: "Muhammad Riyadhul Jinan Nasution",
     role: "Computer Engineering Student",
