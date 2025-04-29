@@ -41,7 +41,7 @@ export default function RootLayout({
             <div className="flex">
               <SideBar/>
               <section className='flex min-h-screen flex-1 flex-col justify-between pt-36'>
-                <div className=' w-full max-w-5xl px-12'>{children}</div>
+                <div className=' w-full max-w-4xl px-12'>{children}</div>
                 <Footer/>
               </section>
               <RightSideBar/>
