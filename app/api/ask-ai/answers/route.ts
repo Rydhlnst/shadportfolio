@@ -19,8 +19,8 @@ Respond in ${language === "id" ? "Indonesian" : "English"}.
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "HTTP-Referer": "http://localhost:3000",
-        "X-Title": "Riyan Portfolio AI"
+        "HTTP-Referer": "https://404ryan.com",
+        "X-Title": "404Riyan AI Char"
       },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo", // 📢 Ganti model stabil
